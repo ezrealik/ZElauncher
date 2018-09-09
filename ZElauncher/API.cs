@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Net;
 
 namespace ZElauncher
 {
@@ -47,7 +48,21 @@ namespace ZElauncher
                 return false;
             }
         }
-
+        public static string GetContentFromUrl(string url)
+        {
+            try
+            {
+                WebClient client = new WebClient();
+                client.Credentials = CredentialCache.DefaultCredentials;//获取或设置请求凭据
+                Byte[] pageData = client.DownloadData(url); //下载数据
+                string pageHtml = System.Text.Encoding.UTF8.GetString(pageData);
+                return pageHtml;
+            }
+            catch (WebException ex)
+            {
+                return ex.Message;
+            }
+        }
         #endregion
 
     }

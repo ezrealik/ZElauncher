@@ -106,6 +106,12 @@
     <Compile Include="Form_MainPage.Designer.cs">
       <DependentUpon>Form_MainPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_MapInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_MapInfo.Designer.cs">
+      <DependentUpon>Form_MapInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_ServerInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_MainPage.resx">
       <DependentUpon>Form_MainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_MapInfo.resx">
+      <DependentUpon>Form_MapInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ServerInfo.resx">
       <DependentUpon>Form_ServerInfo.cs</DependentUpon>

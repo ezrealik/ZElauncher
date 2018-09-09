@@ -178,6 +178,26 @@ namespace ZElauncher
             time_RefreshServer.Tick += new EventHandler(ServerRefreshEvent);
             time_RefreshServer.Start();
             InitSteamPath();
+            RefreshMyInfo();
+        }
+        //初始化我的信息
+        private void RefreshMyInfo()
+        {
+            if (_form1.GetSignState() == false)
+            {
+                label_NickName.Text = "未登录";
+                label_NowMap.Text = "未登录";
+                label_ServerNumber.Text = "未登录";
+                label_SteamID.Text = "未登录";
+                label_MapState.Text = "未登录";
+                label_NowServer.Text = "未登录";
+                label_ServerTick.Text = "未登录";
+                label_Yezi.Text = "未登录";
+                label_integral.Text = "未登录";
+                label_OnlineTime.Text = "未登录";
+                label_NextMap.Text = "未登录";
+                label_SignDay.Text = "未登录";
+            }
         }
         //重构传参构造函数
         public Form_MainPage(Form1 form): this()
@@ -651,7 +671,98 @@ namespace ZElauncher
 
         private void button_YaoYaole_Click(object sender, EventArgs e)
         {
-            
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_flsh_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_MineGame_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_HappyGay_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_Ban_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_Shop_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_VIP_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
+        }
+
+        private void button_MyDisk_Click(object sender, EventArgs e)
+        {
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
         }
 
         private void 显示详情ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -670,7 +781,14 @@ namespace ZElauncher
 
         private void button_SignToDay_Click(object sender, EventArgs e)
         {
-            
+            if (_form1.GetSignState())
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("你没有登录请登录后在操作!");
+            }
         }
     }
 }

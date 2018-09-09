@@ -28,6 +28,7 @@ namespace ZElauncher
 
         static string GSteamPath;
         static string GCSGOPath;
+        static bool IsSign = false;
         public Form1()
         {
             InitializeComponent();
@@ -74,8 +75,16 @@ namespace ZElauncher
             {
                 label_DebugOutPut.Text = "CSGO信息初始化完成!";
             }
-            OpenLoginForm();
+
+            
         }
+        
+        //获取登录状态;
+        public bool GetSignState()
+        {
+            return IsSign;
+        }
+        //打开登录窗口
         private void OpenLoginForm()
         {
             if (login == null || login.IsDisposed)
@@ -85,9 +94,10 @@ namespace ZElauncher
             }
             else
             {
-                set.Activate();//之前已打开，则给予焦点，置顶。
+                login.Activate();//之前已打开，则给予焦点，置顶。
             }
         }
+        //CSGO目录获取定时器线程
         private void time_csgo_event(object sender,EventArgs e)
         {
             label_DebugOutPut.Text = "CSGO线程检测运行中,正在等待CSGO进程运行....";
@@ -110,11 +120,11 @@ namespace ZElauncher
                 label_DebugOutPut.Text = ex.Message.ToString();
             }
         }
+        //输出调试信息文本
         public void SetDebugString(string tp)
         {
             label_DebugOutPut.Text = tp.ToString();
         }
-
         //获取Steam目录
         private void InitSteamPath()
         {
@@ -249,6 +259,7 @@ namespace ZElauncher
                     DefaultTitleColor();
                     button_Title_Page2.BackColor = Color.DeepSkyBlue;
                     ClosePreForm();
+                    SetTileForm(new Form_MapInfo());
                     break;
                 case 2:
                     DefaultTitleColor();
@@ -278,6 +289,7 @@ namespace ZElauncher
             button_Title_Page4.BackColor = Color.Transparent;
             button_Title_Page5.BackColor = Color.Transparent;
         }
+        //标题栏按钮事件
         private void button_Title_Page2_Click(object sender, EventArgs e)
         {
             SetTileIndex(1);
@@ -307,7 +319,14 @@ namespace ZElauncher
         }
         private void Login_MyInfo_Click(object sender, EventArgs e)
         {
-            OpenLoginForm();
+            if (!IsSign)
+            {
+                OpenLoginForm();
+            }
+            else
+            {
+
+            }
         }
         private void Login_MyInfo_MouseLeave(object sender, EventArgs e)
         {

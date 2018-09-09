@@ -367,6 +367,7 @@
             this.button_MyDisk.TabIndex = 9;
             this.button_MyDisk.Text = "我的云盘";
             this.button_MyDisk.UseVisualStyleBackColor = true;
+            this.button_MyDisk.Click += new System.EventHandler(this.button_MyDisk_Click);
             // 
             // button_Ban
             // 
@@ -379,6 +380,7 @@
             this.button_Ban.TabIndex = 8;
             this.button_Ban.Text = "封禁查询";
             this.button_Ban.UseVisualStyleBackColor = true;
+            this.button_Ban.Click += new System.EventHandler(this.button_Ban_Click);
             // 
             // button_flsh
             // 
@@ -391,6 +393,7 @@
             this.button_flsh.TabIndex = 7;
             this.button_flsh.Text = "捕鱼兑换";
             this.button_flsh.UseVisualStyleBackColor = true;
+            this.button_flsh.Click += new System.EventHandler(this.button_flsh_Click);
             // 
             // button_VIP
             // 
@@ -403,6 +406,7 @@
             this.button_VIP.TabIndex = 6;
             this.button_VIP.Text = "充值VIP/叶子";
             this.button_VIP.UseVisualStyleBackColor = true;
+            this.button_VIP.Click += new System.EventHandler(this.button_VIP_Click);
             // 
             // button_Shop
             // 
@@ -415,6 +419,7 @@
             this.button_Shop.TabIndex = 5;
             this.button_Shop.Text = "游戏商城";
             this.button_Shop.UseVisualStyleBackColor = true;
+            this.button_Shop.Click += new System.EventHandler(this.button_Shop_Click);
             // 
             // button_HappyGay
             // 
@@ -427,6 +432,7 @@
             this.button_HappyGay.TabIndex = 4;
             this.button_HappyGay.Text = "欢乐大乐斗";
             this.button_HappyGay.UseVisualStyleBackColor = true;
+            this.button_HappyGay.Click += new System.EventHandler(this.button_HappyGay_Click);
             // 
             // button_MineGame
             // 
@@ -439,6 +445,7 @@
             this.button_MineGame.TabIndex = 3;
             this.button_MineGame.Text = "矿场游戏";
             this.button_MineGame.UseVisualStyleBackColor = true;
+            this.button_MineGame.Click += new System.EventHandler(this.button_MineGame_Click);
             // 
             // button_SignToDay
             // 
