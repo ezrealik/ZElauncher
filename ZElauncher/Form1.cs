@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.IO;
 
 namespace ZElauncher
 {
@@ -22,6 +23,9 @@ namespace ZElauncher
     {
         //全局变量
         Form_Setting set;
+        Form_login login;
+        System.Windows.Forms.Timer time_csgo = new System.Windows.Forms.Timer();
+
         static string GSteamPath;
         static string GCSGOPath;
         public Form1()
@@ -40,15 +44,71 @@ namespace ZElauncher
             }
             else
             {
-                MessageBox.Show("小X已经存在了[Master]不需要重复打开小X的\r\n如果[Master]找不到小X了可以打开任务管理把那个淘气的小X关掉!");
+                MessageBox.Show("小X是单核的[Master]重复执行小X会死机的(>^ω^<)\r\n如果[Master]找不到小X了可以打开任务管理把那个淘气的小X关掉!");
                 Application.Exit();              //关闭系统
             }
             //设置导航栏首页
             SetTileIndex(0);
+            label_DebugOutPut.Text = "导航页初始化完成!";
             //初始化Steam目录
             InitSteamPath();
+            if (File.Exists(GSteamPath))
+            {
+                label_DebugOutPut.Text = "Steam信息初始化完成!";
+            }
+            else
+            {
+                label_DebugOutPut.Text = "Steam目录获取失败!";
+            }
             //初始化CSGO目录;
             InitCSGOPath();
+            if (!File.Exists(GCSGOPath + @"\csgo.exe"))
+            {
+                label_DebugOutPut.Text = "CSGO目录获取失败,执行检测线程自动获取CSGO目录!";
+                time_csgo.Interval = 1000;
+                time_csgo.Enabled = true;
+                time_csgo.Tick += new EventHandler(time_csgo_event);
+                time_csgo.Start();
+            }
+            else
+            {
+                label_DebugOutPut.Text = "CSGO信息初始化完成!";
+            }
+            OpenLoginForm();
+        }
+        private void OpenLoginForm()
+        {
+            if (login == null || login.IsDisposed)
+            {
+                login = new Form_login(this);
+                login.Show();//如果之前未打开，则打开。
+            }
+            else
+            {
+                set.Activate();//之前已打开，则给予焦点，置顶。
+            }
+        }
+        private void time_csgo_event(object sender,EventArgs e)
+        {
+            label_DebugOutPut.Text = "CSGO线程检测运行中,正在等待CSGO进程运行....";
+            try
+            {
+                StringBuilder Csgo = new StringBuilder(1024);
+                if (WIN32API._GetProcessCSGOPath(Csgo, 1024))
+                {
+                    if (File.Exists(Csgo.ToString() + @"\csgo.exe"))
+                    {
+                        GCSGOPath = Csgo.ToString();
+                        time_csgo.Stop();
+                        WIN32API.WritePrivateProfileString("Steam", "CSGOPath", GCSGOPath, Application.StartupPath + "\\Config.ini");
+                        label_DebugOutPut.Text = "成功获取到CSGO目录路径!";
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                label_DebugOutPut.Text = ex.Message.ToString();
+            }
         }
         public void SetDebugString(string tp)
         {
@@ -81,6 +141,10 @@ namespace ZElauncher
                 label_DebugOutPut.Text = e.Message.ToString();
             }
         }
+        public void SetSteamPath(string path)
+        {
+            GSteamPath = path;
+        }
         public string GetSteamPath()
         {
             return GSteamPath;
@@ -92,12 +156,19 @@ namespace ZElauncher
             {
                 StringBuilder Stream = new StringBuilder(1024);
                 WIN32API.GetPrivateProfileString("Steam", "CSGOPath", null, Stream, 1024, Application.StartupPath + "\\Config.ini");
-                if (Stream.Length > 5)
+                if (File.Exists(Stream.ToString() + @"\csgo.exe"))
                 {
                     GCSGOPath = Stream.ToString();
                     return;
                 }
-                label_DebugOutPut.Text = "获取CSGO目录失败!!";
+                WIN32API._GetCSGOPath(Stream, 1024);
+                GCSGOPath = Stream.ToString();
+                if (File.Exists(GCSGOPath.ToString() + @"\csgo.exe"))
+                {
+                    label_DebugOutPut.Text = "获取CSGO目录失败!!";
+                    return;
+                }
+                WIN32API.WritePrivateProfileString("Steam", "CSGOPath", GCSGOPath, Application.StartupPath + "\\Config.ini");
             }
             catch (Exception e)
             {
@@ -107,6 +178,10 @@ namespace ZElauncher
         public string GetCSGOPath()
         {
             return GCSGOPath;
+        }
+        public void SetCSGOPath(string path)
+        {
+            GCSGOPath = path;
         }
         //标题栏点击 移动窗口
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -150,7 +225,7 @@ namespace ZElauncher
             }
         }
         //新建Tab窗口
-        private void OpenForm(Form objFrm)
+        private void SetTileForm(Form objFrm)
         {
             //嵌入子窗体到父窗体中，把添加学员信息嵌入到主窗体右侧
             objFrm.TopLevel = false; //将子窗体设置成非最高层，非顶级控件
@@ -168,7 +243,7 @@ namespace ZElauncher
                     DefaultTitleColor();
                     button_Title_MainPage.BackColor = Color.DeepSkyBlue;
                     ClosePreForm();
-                    OpenForm(new Form_MainPage(this));
+                    SetTileForm(new Form_MainPage(this));
                     break;
                 case 1:
                     DefaultTitleColor();
@@ -232,7 +307,7 @@ namespace ZElauncher
         }
         private void Login_MyInfo_Click(object sender, EventArgs e)
         {
-
+            OpenLoginForm();
         }
         private void Login_MyInfo_MouseLeave(object sender, EventArgs e)
         {

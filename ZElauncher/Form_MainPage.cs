@@ -524,11 +524,11 @@ namespace ZElauncher
                 string r;
                 if (checkBox_CN.Checked)
                 {
-                    r = string.Format("-applaunch 730 -perfectworld +connect {0}", IPO);
+                    r = string.Format("-applaunch 730 -perfectworld -novid +connect {0}", IPO);
                 }
                 else
                 {
-                    r = string.Format("-applaunch 730 -worldwide +connect {0}", IPO);
+                    r = string.Format("-applaunch 730 -worldwide -novid +connect {0}", IPO);
                 }
                 Process.Start(_form1.GetSteamPath(), r);
                 Sleep(3000);

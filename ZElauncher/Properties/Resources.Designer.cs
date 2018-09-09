@@ -163,6 +163,16 @@ namespace ZElauncher.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap qq_login {
+            get {
+                object obj = ResourceManager.GetObject("qq_login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap Set {
             get {
                 object obj = ResourceManager.GetObject("Set", resourceCulture);
@@ -176,6 +186,26 @@ namespace ZElauncher.Properties {
         internal static System.Drawing.Bitmap Setting {
             get {
                 object obj = ResourceManager.GetObject("Setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap steam_login {
+            get {
+                object obj = ResourceManager.GetObject("steam_login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap weixin_bind {
+            get {
+                object obj = ResourceManager.GetObject("weixin_bind", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

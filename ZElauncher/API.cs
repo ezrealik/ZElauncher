@@ -20,6 +20,12 @@ namespace ZElauncher
         public static extern bool ReleaseCapture();
         [DllImport("user32.dll")]
         public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        [DllImport("ZEModule.dll")]
+        public static extern bool _GetCSGOPath(StringBuilder Bufferstr,int strlen);
+        [DllImport("ZEModule.dll")]
+        public static extern bool _GetProcessCSGOPath(StringBuilder Bufferstr, int strlen);
+        [DllImport("ZEModule.dll")]
+        public static extern bool _DeleteSuffix(StringBuilder Bufferstr, char str);
         //消息定义;
         public const int VM_NCLBUTTONDOWN = 0XA1;//定义鼠标左键按下
         public const int HTCAPTION = 2;

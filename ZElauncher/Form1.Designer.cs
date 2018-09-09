@@ -49,11 +49,11 @@
             this.label_DebugOutPut = new System.Windows.Forms.Label();
             this.Menu1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.访问官方论坛ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.注销登录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.下载更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.关于我们ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.反馈建议ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.注销登录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于我们ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Login_MyInfo)).BeginInit();
@@ -264,6 +264,7 @@
             // 
             this.Login_MyInfo.BackColor = System.Drawing.Color.Transparent;
             this.Login_MyInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Login_MyInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Login_MyInfo.ErrorImage = ((System.Drawing.Image)(resources.GetObject("Login_MyInfo.ErrorImage")));
             this.Login_MyInfo.Image = global::ZElauncher.Properties.Resources.Profile;
             this.Login_MyInfo.Location = new System.Drawing.Point(764, 2);
@@ -307,43 +308,43 @@
             this.反馈建议ToolStripMenuItem,
             this.关于我们ToolStripMenuItem});
             this.Menu1.Name = "Menu1";
-            this.Menu1.Size = new System.Drawing.Size(153, 142);
+            this.Menu1.Size = new System.Drawing.Size(149, 120);
             // 
             // 访问官方论坛ToolStripMenuItem
             // 
             this.访问官方论坛ToolStripMenuItem.Name = "访问官方论坛ToolStripMenuItem";
-            this.访问官方论坛ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.访问官方论坛ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.访问官方论坛ToolStripMenuItem.Text = "访问官方论坛";
             this.访问官方论坛ToolStripMenuItem.Click += new System.EventHandler(this.访问官方论坛ToolStripMenuItem_Click);
+            // 
+            // 注销登录ToolStripMenuItem
+            // 
+            this.注销登录ToolStripMenuItem.Name = "注销登录ToolStripMenuItem";
+            this.注销登录ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.注销登录ToolStripMenuItem.Text = "注销登录";
             // 
             // 下载更新ToolStripMenuItem
             // 
             this.下载更新ToolStripMenuItem.Name = "下载更新ToolStripMenuItem";
-            this.下载更新ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.下载更新ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.下载更新ToolStripMenuItem.Text = "下载更新";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // 关于我们ToolStripMenuItem
-            // 
-            this.关于我们ToolStripMenuItem.Name = "关于我们ToolStripMenuItem";
-            this.关于我们ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.关于我们ToolStripMenuItem.Text = "关于我们";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(145, 6);
             // 
             // 反馈建议ToolStripMenuItem
             // 
             this.反馈建议ToolStripMenuItem.Name = "反馈建议ToolStripMenuItem";
-            this.反馈建议ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.反馈建议ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.反馈建议ToolStripMenuItem.Text = "反馈建议";
             // 
-            // 注销登录ToolStripMenuItem
+            // 关于我们ToolStripMenuItem
             // 
-            this.注销登录ToolStripMenuItem.Name = "注销登录ToolStripMenuItem";
-            this.注销登录ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.注销登录ToolStripMenuItem.Text = "注销登录";
+            this.关于我们ToolStripMenuItem.Name = "关于我们ToolStripMenuItem";
+            this.关于我们ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.关于我们ToolStripMenuItem.Text = "关于我们";
             // 
             // Form1
             // 
