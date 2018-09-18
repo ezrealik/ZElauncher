@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-
+using System.Web;
 using System.Net.Sockets;
 using System.Net;
 using System.Threading;
@@ -174,15 +174,67 @@ namespace ZElauncher
             InitServerListInfo(ServerMode);
             //服务器列表刷新定时器;
             time_RefreshServer.Enabled = true;
-            time_RefreshServer.Interval = 8 * 1000;//3Secound;
+            time_RefreshServer.Interval = 15 * 1000;//15Secound;
             time_RefreshServer.Tick += new EventHandler(ServerRefreshEvent);
             time_RefreshServer.Start();
             InitSteamPath();
             RefreshMyInfo();
         }
+        #region 同步通过GET方式发送数据
+        /// <summary>
+        /// 通过GET方式发送数据
+        /// </summary>
+        /// <param name="Url">url</param>
+        /// <param name="postDataStr">GET数据</param>
+        /// <param name="cookie">GET容器</param>
+        /// <returns></returns>
+        public string SendDataByGET(string Url, string postDataStr, ref CookieContainer cookie)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url + (postDataStr == "" ? "" : "?") + postDataStr);
+            if (cookie.Count == 0)
+            {
+                request.CookieContainer = new CookieContainer();
+                cookie = request.CookieContainer;
+            }
+            else
+            {
+                request.CookieContainer = cookie;
+            }
+
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+
+            return retString;
+        }
+        #endregion
         //初始化我的信息
         private void RefreshMyInfo()
         {
+            //WebBrowser webr = new WebBrowser();
+            //string url = "https://bbs.93x.net/plugin.php?id=xnet_steam_openid:SoftLogin", cookie;
+            //StreamReader sr = new StreamReader(Application.StartupPath + "\\Cookies.dat", false);
+            //cookie = sr.ReadLine().ToString();
+            //sr.Close();
+            //Console.WriteLine(SendDataByGET(url, "", null));
+            //foreach (string c in cookie.Split(';'))
+            //{
+            //    string[] item = c.Split('=');
+            //    if (item.Length == 2)
+            //    {
+            //        WIN32API.InternetSetCookie(url, null, new Cookie(HttpUtility.UrlEncode(item[0]).Replace("+", ""), 
+            //            HttpUtility.UrlEncode(item[1]), "; expires = Session GMT", "/").ToString());
+            //    }
+            //}
+        //WIN32API.InternetSetCookie(url, "cookieName", "cookieValue");
+            //webr.Navigate(url);
+            //string ro = webr.DocumentText;
             if (_form1.GetSignState() == false)
             {
                 label_NickName.Text = "未登录";
@@ -234,7 +286,7 @@ namespace ZElauncher
         private bool IsMapExist(string mapName)
         {
             StringBuilder Path = new StringBuilder(1024);
-            Path.Append("F:\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\csgo\\maps\\");
+            Path.Append(_form1.GetCSGOPath() + "\\csgo\\maps\\");
             Path.Append(mapName);
             Path.Append(".bsp");
             return File.Exists(Path.ToString());
@@ -406,8 +458,11 @@ namespace ZElauncher
                             break;
                         case "solo":
                             #region 单挑/SOLO
-                            if (string.Compare(tempo["mode"].ToString(), "1v1") == 0
-                                || string.Compare(tempo["mode"].ToString(), "solo") == 0
+                            string str = tempo["mode"].ToString();
+                            string str2 = tempo["name"].ToString();
+                            if (str.IndexOf("1v1") != -1
+                                || str.IndexOf("solo") != -1
+                                || str2.IndexOf("1v1") != -1
                                 )
                             {
                                 index = listView_Server.Items.Count;
@@ -544,11 +599,30 @@ namespace ZElauncher
                 string r;
                 if (checkBox_CN.Checked)
                 {
-                    r = string.Format("-applaunch 730 -perfectworld -novid +connect {0}", IPO);
+                    StringBuilder rew = new StringBuilder(25);
+                    WIN32API.GetPrivateProfileString("Key", "bind", null, rew, 25, Application.StartupPath + "\\Config.ini");
+                    if (rew.ToString() == "true")
+                    {
+                        r = string.Format("-applaunch 730 -perfectworld -novid +exec bind +connect {0}", IPO);
+                    }
+                    else
+                    {
+                        r = string.Format("-applaunch 730 -perfectworld -novid +connect {0}", IPO);
+                    }
+                    
                 }
                 else
                 {
-                    r = string.Format("-applaunch 730 -worldwide -novid +connect {0}", IPO);
+                    StringBuilder rew = new StringBuilder(25);
+                    WIN32API.GetPrivateProfileString("Key", "bind", null, rew, 25, Application.StartupPath + "\\Config.ini");
+                    if (rew.ToString() == "true")
+                    {
+                        r = string.Format("-applaunch 730 -worldwide -novid +exec bind +connect {0}", IPO);
+                    }
+                    else
+                    {
+                        r = string.Format("-applaunch 730 -worldwide -novid +connect {0}", IPO);
+                    }
                 }
                 Process.Start(_form1.GetSteamPath(), r);
                 Sleep(3000);
@@ -719,26 +793,12 @@ namespace ZElauncher
 
         private void button_Ban_Click(object sender, EventArgs e)
         {
-            if (_form1.GetSignState())
-            {
-
-            }
-            else
-            {
-                MessageBox.Show("你没有登录请登录后在操作!");
-            }
+            _form1.OpenBanQueryForm();
         }
 
         private void button_Shop_Click(object sender, EventArgs e)
         {
-            if (_form1.GetSignState())
-            {
-
-            }
-            else
-            {
-                MessageBox.Show("你没有登录请登录后在操作!");
-            }
+            _form1.OpenShopForm();
         }
 
         private void button_VIP_Click(object sender, EventArgs e)

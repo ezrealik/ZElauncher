@@ -24,7 +24,7 @@ namespace ZElauncher
         static string IPOR = null;
         private static IPEndPoint epServer;
         private static UdpClient local;
-        Stopwatch sw = new Stopwatch();
+        static Stopwatch sw = new Stopwatch();
         public void SetIPO(string IPO)
         {
             IPOR = IPO;
@@ -46,7 +46,7 @@ namespace ZElauncher
         {
             try
             {
-                sw.Start();
+                sw.Restart();
                 //设置服务器端IP和端口
                 string itemtext = IPOR;
                 string[] sArray = Regex.Split(itemtext, ":", RegexOptions.IgnoreCase);
@@ -101,6 +101,7 @@ namespace ZElauncher
             try
             {
                 //设置服务器端IP和端口
+                listView_PlayerInfo.Items.Clear();
                 string itemtext = IPOR;
                 string[] sArray = Regex.Split(itemtext, ":", RegexOptions.IgnoreCase);
                 int pri = 0;
@@ -261,7 +262,9 @@ namespace ZElauncher
                                 //获取玩家时间
                                 gb2312Bytes = RevData.Skip(i).ToArray();
                                 Time = BitConverter.ToInt32(gb2312Bytes, 0);
-                                Time = Time / (3600*1000);
+                                Time -= 1058216820;
+                                Time /= 36000;
+                                Time /= 60;
                                 listView_PlayerInfo.Items[Index].SubItems.Add(Time.ToString());
                                 //记录玩家名字出现的位置
                                 i += 5;
@@ -313,6 +316,11 @@ namespace ZElauncher
                 //发送消息 让系统误以为在标题栏上按下鼠标
                 WIN32API.SendMessage((IntPtr)this.Handle, WIN32API.VM_NCLBUTTONDOWN, WIN32API.HTCAPTION, 0);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UDPGetSvInfo();
         }
     }
 }

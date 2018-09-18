@@ -24,7 +24,12 @@ namespace ZElauncher
         //全局变量
         Form_Setting set;
         Form_login login;
+        Form_BanQuery BanQuery;
+        Form_Shop Shop;
         System.Windows.Forms.Timer time_csgo = new System.Windows.Forms.Timer();
+        //导航窗口变量;
+        static Form_MainPage Title0;
+        static Form_MapInfo Title1;
 
         static string GSteamPath;
         static string GCSGOPath;
@@ -39,6 +44,10 @@ namespace ZElauncher
             //检测重复执行
             bool isRuned;
             System.Threading.Mutex mutex = new System.Threading.Mutex(true, "ZELauncher-93X", out isRuned);
+            //导航窗口初始化;
+            Title0 = new Form_MainPage(this);
+            Title1 = new Form_MapInfo(this);
+
             if (isRuned)
             {
                 mutex.ReleaseMutex();
@@ -78,7 +87,32 @@ namespace ZElauncher
 
             
         }
-        
+        //打开封禁查询窗口
+        public void OpenBanQueryForm()
+        {
+            if (BanQuery == null || BanQuery.IsDisposed)
+            {
+                BanQuery = new Form_BanQuery();
+                BanQuery.Show();//如果之前未打开，则打开。
+            }
+            else
+            {
+                BanQuery.Activate();//之前已打开，则给予焦点，置顶。
+            }
+        }
+        //打开商城窗口
+        public void OpenShopForm()
+        {
+            if (Shop == null || Shop.IsDisposed)
+            {
+                Shop = new Form_Shop();
+                Shop.Show();//如果之前未打开，则打开。
+            }
+            else
+            {
+                Shop.Activate();//之前已打开，则给予焦点，置顶。
+            }
+        }
         //获取登录状态;
         public bool GetSignState()
         {
@@ -229,6 +263,7 @@ namespace ZElauncher
                 if (item is Form)
                 {
                     Form objControl = (Form)item;
+                    objControl.Dispose();
                     objControl.Close();
                 }
 
@@ -259,12 +294,13 @@ namespace ZElauncher
                     DefaultTitleColor();
                     button_Title_Page2.BackColor = Color.DeepSkyBlue;
                     ClosePreForm();
-                    SetTileForm(new Form_MapInfo());
+                    SetTileForm(new Form_MapInfo(this));
                     break;
                 case 2:
                     DefaultTitleColor();
                     button_Title_Page3.BackColor = Color.DeepSkyBlue;
                     ClosePreForm();
+                    SetTileForm(new Form_Video(this));
                     break;
                 case 3:
                     DefaultTitleColor();

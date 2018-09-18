@@ -585,6 +585,7 @@
             this.checkBox_BindKey.TabIndex = 3;
             this.checkBox_BindKey.Text = "绑定按键指令";
             this.checkBox_BindKey.UseVisualStyleBackColor = true;
+            this.checkBox_BindKey.CheckedChanged += new System.EventHandler(this.checkBox_BindKey_CheckedChanged);
             // 
             // checkBox_DownloadMap
             // 

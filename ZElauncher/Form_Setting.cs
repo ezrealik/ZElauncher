@@ -15,6 +15,7 @@ namespace ZElauncher
     public partial class Form_Setting : Form
     {
         private Form1 _form1;
+        bool isor = false;
         public Form_Setting()
         {
             InitializeComponent();
@@ -51,6 +52,16 @@ namespace ZElauncher
                 //UTF-8通用编码
                 textBox_KeyCmd.Text = st.ReadToEnd();
                 st.Close();
+                StringBuilder rew = new StringBuilder(25);
+                WIN32API.GetPrivateProfileString("Key", "bind", null, rew, 25, Application.StartupPath + "\\Config.ini");
+                if (rew.ToString() == "true")
+                {
+                    checkBox_BindKey.Checked = true;
+                }
+                else
+                {
+                    checkBox_BindKey.Checked = false;
+                }
             }
             catch
             {
@@ -146,7 +157,6 @@ namespace ZElauncher
         private void button3_Click(object sender, EventArgs e)
         {
             string BindCmd, KeyCmd = "", key = "";
-
             #region 指令选择
             if (cmd_he.Checked)
             {
@@ -286,8 +296,16 @@ namespace ZElauncher
             #endregion
             if (key.Length > 0)
             {
-                BindCmd = string.Format("\r\nbind \"{0}\" \"say {1} {2}\"", key, KeyCmd, textBox_Out.Text.ToString());
-                textBox_KeyCmd.AppendText(BindCmd);
+                if (textBox_KeyCmd.Text.Length > 5)
+                {
+                    BindCmd = string.Format("\r\nbind \"{0}\" \"say {1} {2}\"", key, KeyCmd, textBox_Out.Text.ToString());
+                    textBox_KeyCmd.AppendText(BindCmd);
+                }
+                else
+                {
+                    BindCmd = string.Format("bind \"{0}\" \"say {1} {2}\"", key, KeyCmd, textBox_Out.Text.ToString());
+                    textBox_KeyCmd.AppendText(BindCmd);
+                }
             }
             else
             {
@@ -318,6 +336,24 @@ namespace ZElauncher
                     _form1.SetCSGOPath(textBox_CSGOPath.Text);
                     WIN32API.WritePrivateProfileString("Steam", "CSGOPath", textBox_CSGOPath.Text, Application.StartupPath + "\\Config.ini");
                 }
+            }
+        }
+
+        private void checkBox_BindKey_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_BindKey.Checked)
+            {
+                WIN32API.WritePrivateProfileString("Key", "bind", "true", Application.StartupPath + "\\Config.ini");
+                if (isor)
+                {
+                    MessageBox.Show("已开启按键绑定,如果没有效果,请打开控制台输入[\"exec bind\"]手动激活按键!");
+                }
+                isor = true;
+            }
+            else
+            {
+                isor = true;
+                WIN32API.WritePrivateProfileString("Key", "bind", "false", Application.StartupPath + "\\Config.ini");
             }
         }
     }

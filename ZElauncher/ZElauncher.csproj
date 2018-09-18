@@ -94,11 +94,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_BanQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_BanQuery.Designer.cs">
+      <DependentUpon>Form_BanQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_login.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form_login.Designer.cs">
       <DependentUpon>Form_login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_loginQQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_loginQQ.Designer.cs">
+      <DependentUpon>Form_loginQQ.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_MainPage.cs">
       <SubType>Form</SubType>
@@ -124,13 +136,31 @@
     <Compile Include="Form_Setting.Designer.cs">
       <DependentUpon>Form_Setting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Shop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Shop.Designer.cs">
+      <DependentUpon>Form_Shop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Video.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Video.Designer.cs">
+      <DependentUpon>Form_Video.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_BanQuery.resx">
+      <DependentUpon>Form_BanQuery.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_login.resx">
       <DependentUpon>Form_login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_loginQQ.resx">
+      <DependentUpon>Form_loginQQ.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_MainPage.resx">
       <DependentUpon>Form_MainPage.cs</DependentUpon>
@@ -143,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Setting.resx">
       <DependentUpon>Form_Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Shop.resx">
+      <DependentUpon>Form_Shop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Video.resx">
+      <DependentUpon>Form_Video.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -183,6 +219,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ICON.ico" />
+    <None Include="Resource\Refresh.png" />
+    <None Include="Resource\Go.png" />
+    <None Include="Resource\Back.png" />
+    <None Include="Resource\profilephoto2.jpg" />
     <None Include="Resource\weixin_bind.png" />
     <None Include="Resource\steam_login.gif" />
     <None Include="Resource\qq_login.gif" />

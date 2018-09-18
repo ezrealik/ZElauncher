@@ -782,7 +782,7 @@
             // listView_Server
             // 
             this.listView_Server.BackColor = System.Drawing.Color.White;
-            this.listView_Server.BackgroundImage = global::ZElauncher.Properties.Resources.BG;
+            this.listView_Server.BackgroundImage = global::ZElauncher.Properties.Resources.profilephoto2;
             this.listView_Server.BackgroundImageTiled = true;
             this.listView_Server.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listView_Server.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;

@@ -27,6 +27,8 @@ namespace ZElauncher
         public static extern bool _GetProcessCSGOPath(StringBuilder Bufferstr, int strlen);
         [DllImport("ZEModule.dll")]
         public static extern bool _DeleteSuffix(StringBuilder Bufferstr, char str);
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool InternetSetCookie(string lpszUrlName, string lbszCookieName, string lpszCookieData);
         //消息定义;
         public const int VM_NCLBUTTONDOWN = 0XA1;//定义鼠标左键按下
         public const int HTCAPTION = 2;
@@ -62,6 +64,49 @@ namespace ZElauncher
             {
                 return ex.Message;
             }
+        }
+        public static string UnixToDateTime(string Unix)
+        {
+            long unixTimeStamp;
+            long.TryParse(Unix, out unixTimeStamp);
+            if (unixTimeStamp > 0x7FFF)
+            {
+                System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1)); // 当地时区
+                DateTime dt = startTime.AddSeconds(unixTimeStamp);
+                return dt.ToString("yyyy/MM/dd HH:mm");
+            }
+            return "";
+        }
+        public static string GetSizeKB(string Size)
+        {
+            long DataSize;
+            long.TryParse(Size, out DataSize);
+            string SizeKb;
+            int cout = 0;
+            while (DataSize > 1024)
+            {
+                DataSize /= 1024;
+                cout++;
+            }
+            switch (cout)
+            {
+                case 1:
+                    SizeKb = string.Format("{0}/KB", DataSize);
+                    break;
+                case 2:
+                    SizeKb = string.Format("{0}/MB", DataSize);
+                    break;
+                case 3:
+                    SizeKb = string.Format("{0}/GB", DataSize);
+                    break;
+                case 4:
+                    SizeKb = string.Format("{0}/TB", DataSize);
+                    break;
+                default:
+                    SizeKb = string.Format("{0}/B", DataSize);
+                    break;
+            }
+            return SizeKb;
         }
         #endregion
 
